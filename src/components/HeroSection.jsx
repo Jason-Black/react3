@@ -1,42 +1,31 @@
 import { useEffect } from "react";
 import { gsap } from "gsap";
+import { useGSAP } from '@gsap/react';
+
+gsap.registerPlugin(useGSAP);
 
 function HeroSection() {
-  useEffect(() => {
-    // Use gsap.fromTo to ensure the animation ends in the correct state
-    gsap.fromTo(
-      ".hero-text",
-      {
-        opacity: 0.5,
-        y: 10,
-      },
-      {
-        opacity: 1,
-        y: 0,
-        duration: 1.5,
-        ease: "power1.out",
-        stagger: 0.3,
-        onStart: () => console.log("Animating hero-text"),
-        onComplete: () => console.log("Completed animating hero-text"),
-      }
-    );
+  useGSAP(() => {
+    // Increase initial opacity closer to 1 and reduce vertical movement
+    gsap.from(".hero-text", {
+      opacity: 0.5,  // Start closer to full opacity
+      y: 10,  // Reduce vertical movement
+      duration: 1.5,  // Slow down the animation slightly
+      ease: "power1.out",
+      stagger: 0.3,  // Add a bit more delay between text elements
+      onStart: () => console.log("Animating hero-text"),
+      onComplete: () => console.log("Completed animating hero-text"),
+    });
 
-    gsap.fromTo(
-      ".hero-button",
-      {
-        opacity: 0.5,
-        y: 10,
-      },
-      {
-        opacity: 1,
-        y: 0,
-        duration: 1.5,
-        ease: "power1.out",
-        delay: 0.8,
-        onStart: () => console.log("Animating hero-button"),
-        onComplete: () => console.log("Completed animating hero-button"),
-      }
-    );
+    gsap.from(".hero-button", {
+      opacity: 0.5,  // Start closer to full opacity
+      y: 10,  // Reduce vertical movement
+      duration: 1.5,
+      ease: "power1.out",
+      delay: 0.8,  // Delay slightly more for button
+      onStart: () => console.log("Animating hero-button"),
+      onComplete: () => console.log("Completed animating hero-button"),
+    });
   }, []);
 
   return (
